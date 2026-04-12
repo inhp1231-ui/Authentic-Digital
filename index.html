@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Book Collection | Authentic Digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.5/build/spline-viewer.js"></script>
+    <style>
+        :root {
+            --primary: #ffe9e9;
+            --secondary: #fff5f5;
+            --accent: #000000;
+            --text-main: #1d1d1f;
+            --text-sub: #76767b;
+            --border: #e5d8d8;
+            --bg: #ffe9e9;
+            --card-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            --accent-hover: #333333;
+        }
+
+        [data-theme='dark'] {
+            --primary: #0c0c0c;
+            --secondary: #1a1a1a;
+            --accent: #ffffff;
+            --text-main: #f5f5f7;
+            --text-sub: #8e8e93;
+            --border: #333333;
+            --bg: #0c0c0c;
+            --accent-hover: #cccccc;
+        }
+        
+        .footer {
+            background: #111111;
+            color: #ffffff;
+            padding: 80px 0 40px;
+            border-top: none;
+        }
+        
+        .footer .logo, .footer h4 {
+            color: #ffffff;
+        }
+        
+        .footer p, .footer ul a, .bottom-bar {
+            color: #8e8e93 !important;
+        }
+        
+        .footer ul a:hover {
+            color: #ffffff !important;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.5;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        nav {
+            height: 60px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-sub);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 980px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            margin-left: 16px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(0,0,0,0.05);
+        }
+
+        /* Testimonials */
+        .testimonials { padding: 100px 0; background: var(--bg-color); }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 50px; }
+        .testimonial-card { 
+            background: rgba(255,255,255,0.4); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,0,0,0.05); 
+            padding: 40px; 
+            border-radius: 24px; 
+            display: flex; 
+            flex-direction: column; 
+            transition: transform 0.3s ease;
+        }
+        .testimonial-card:hover { transform: translateY(-5px); }
+        .stars { color: #FFB800; margin-bottom: 20px; }
+        .testimonial-text { font-style: italic; font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px; color: var(--text-color); }
+        .reviewer { display: flex; align-items: center; margin-top: auto; }
+        .reviewer-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin-right: 15px; border: 2px solid #fff; }
+        .reviewer-info h4 { margin: 0; font-size: 1rem; }
+        .reviewer-info p { margin: 0; font-size: 0.85rem; color: var(--text-secondary); }
+
+        .spline-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        spline-viewer {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 20;
+            max-width: 600px;
+            padding: 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 100px 0 60px;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .product-row {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            margin-bottom: 120px;
+        }
+
+        .product-content {
+            flex: 1;
+        }
+
+        .product-image {
+            flex: 1;
+            background: var(--secondary);
+            border-radius: 32px;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .product-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+
+        .product-desc {
+            font-size: 1.125rem;
+            color: var(--text-sub);
+            margin-bottom: 32px;
+        }
+
+        .pricing-section {
+            background: var(--secondary);
+            padding: 100px 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .pricing-card {
+            background: var(--bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured {
+            background: #000000;
+            color: #ffffff;
+            border: none;
+            position: relative;
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .featured .eyebrow, .featured .price, .featured h3 {
+            color: #ffffff;
+        }
+
+        .featured .product-desc, .featured .price span {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .featured .badge {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .featured .btn-primary {
+            background: #ffffff;
+            color: #000000;
+        }
+        
+        .featured .btn-primary:hover {
+            background: #f0f0f0;
+        }
+
+        .featured:hover {
+            transform: scale(1.06) translateY(-5px);
+        }
+
+        .badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 24px 0;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-sub);
+            text-decoration: line-through;
+            margin-right: 8px;
+        }
+
+        .discount {
+            color: #d70015;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .footer {
+            background: #111111;
+            padding: 80px 0 40px;
+            color: #ffffff;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer p {
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
+
+        .footer h4 {
+            margin-bottom: 20px;
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer ul a {
+            text-decoration: none;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer ul a:hover {
+            color: var(--accent);
+        }
+
+        .bottom-bar {
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 0.8rem;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .buy-btn-full {
+            width: 100%;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.5rem; }
+            .product-row { flex-direction: column; gap: 40px; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .product-row:nth-child(even) { flex-direction: column; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">AUTHENTIC DIGITAL</a>
+            <ul class="nav-links">
+                <li><a href="authentic-collection.html">Authentic Collection</a></li>
+                <li><a href="earning-hack.html">Earning Hack</a></li>
+                <li><a href="fashion-style.html">Fashion/Style</a></li>
+                <li><a href="https://authenticdigital9.myinstamojo.com" target="_blank">Store</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="spline-container">
+            <spline-viewer url="https://prod.spline.design/z2WAu8atfNzH83qe/scene.splinecode" style="width: 100%; height: 100%;"></spline-viewer>
+        </div>
+        <div class="container hero-grid">
+            <div class="hero-content" style="z-index: 20; position: relative;">
+                <div class="eyebrow">Architecture of Success</div>
+                <h1>Your Success Library Starts Here</h1>
+                <p>Architect blueprints for digital growth and prestige.</p>
+                <div>
+                    <a href="#authentic-collection" class="btn btn-primary">Browse Collection</a>
+                    <a href="https://authenticdigital9.myinstamojo.com" target="_blank" class="btn btn-outline">Visit Store</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authentic Collection -->
+    <div id="authentic-collection" style="position: sticky; top: 60px; background: rgba(255, 233, 233, 0.95); backdrop-filter: blur(10px); z-index: 90; border-bottom: 1px solid rgba(0,0,0,0.05); padding: 15px 0;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;">Authentic Collection</span>
+            <span style="font-size: 0.7rem; color: #8e8e93; font-style: italic;">Limited Edition Guides</span>
+        </div>
+    </div>
+    <section class="container" style="padding: 100px 24px;">
+        <!-- Book 1: Mega Bundle -->
+        <div class="product-row">
+            <div class="product-image">
+                <img src="mega_combo.png" alt="Mega Combo">
+            </div>
+            <div class="product-content">
+                <div class="eyebrow">Ultimate Bundle</div>
+                <h3 class="product-title">MEGA COMBO OF THREE</h3>
+                <p class="product-desc" style="white-space: pre-line;">📚 E-Book 1: Women’s Fashion & Style
+📚 E-Book 2: Digital Marketing India
+📚 E-Book 3: Instagram Marketing</p>
+                <div class="price"><span>₹2000</span> ₹699 <span class="discount">(65% OFF)</span></div>
+                <a href="https://imojo.in/deSQJW" target="_blank" class="btn btn-primary">Buy Now</a>
+            </div>
+        </div>
+
+        <!-- Book 5: Style + Digital Hack -->
+        <div class="product-row" style="flex-direction: row-reverse;">
+            <div class="product-image">
+                <img src="combo_style_digital_hack.png" alt="Style + Digital Combo">
+            </div>
+            <div class="product-content">
+                <div class="eyebrow">Identity & Growth</div>
+                <h3 class="product-title">COMBO OF STYLE + DIGITAL HACK</h3>
+                <p class="product-desc">Fashion, Identity & Digital Growth — All-in-One Guide. Designed for modern students, creators, and beginners who want to build confidence and income.</p>
+                <div class="price"><span>₹1569</span> ₹799 <span class="discount">(49% OFF)</span></div>
+                <a href="https://imojo.in/1HQYwwn" target="_blank" class="btn btn-primary">Buy Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fashion/Style -->
+    <div id="fashion-style" style="position: sticky; top: 60px; background: rgba(255, 233, 233, 0.95); backdrop-filter: blur(10px); z-index: 90; border-bottom: 1px solid rgba(0,0,0,0.05); padding: 15px 0;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;">Fashion/Style</span>
+            <span style="font-size: 0.7rem; color: #8e8e93; font-style: italic;">Limited Edition Guides</span>
+        </div>
+    </div>
+    <section class="container" style="padding: 100px 24px;">
+        <!-- Book 2: Style Neutrala -->
+        <div class="product-row">
+            <div class="product-image">
+                <img src="style_neutrala.jpg" alt="Style Neutrala">
+            </div>
+            <div class="product-content">
+                <div class="eyebrow">Confidence & Branding</div>
+                <h3 class="product-title">THE STYLE NEUTRALA</h3>
+                <p class="product-desc">A complete fashion and confidence guide for Gen Z women and students. Body proportion science and capsule wardrobe systems.</p>
+                <div class="price"><span>₹1670</span> ₹399 <span class="discount">(76% OFF)</span></div>
+                <a href="https://imojo.in/S77kV6" target="_blank" class="btn btn-primary">Buy Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Earning Hack -->
+    <div id="earning-hack" style="position: sticky; top: 60px; background: rgba(255, 233, 233, 0.95); backdrop-filter: blur(10px); z-index: 90; border-bottom: 1px solid rgba(0,0,0,0.05); padding: 15px 0;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;">Earning Hack</span>
+            <span style="font-size: 0.7rem; color: #8e8e93; font-style: italic;">Limited Edition Guides</span>
+        </div>
+    </div>
+    <section class="container" style="padding: 100px 24px;">
+        <!-- Book 3: Digital Marketing -->
+        <div class="product-row">
+            <div class="product-image">
+                <img src="hack_digital_marketing.png" alt="Digital Marketing">
+            </div>
+            <div class="product-content">
+                <div class="eyebrow">Marketing Strategy</div>
+                <h3 class="product-title">HACK OF DIGITAL MARKETING</h3>
+                <p class="product-desc">Unlock the Secrets to Creating and Selling Profitable Digital Products in the Indian Market. Understanding India's ₹multi-billion creator economy.</p>
+                <div class="price"><span>₹1480</span> ₹399 <span class="discount">(73% OFF)</span></div>
+                <a href="https://imojo.in/1cY5XwN" target="_blank" class="btn btn-primary">Buy Now</a>
+            </div>
+        </div>
+
+        <!-- Book 4: Instagram Selling -->
+        <div class="product-row" style="flex-direction: row-reverse;">
+            <div class="product-image">
+                <img src="instagram_selling_mastery.png" alt="Instagram Selling Mastery">
+            </div>
+            <div class="product-content">
+                <div class="eyebrow">2026 Data Strategy</div>
+                <h3 class="product-title">INSTAGRAM SELLING MASTERY</h3>
+                <p class="product-desc">Turn Instagram Trends into Profitable E-book Opportunities. Real data-backed market analysis for the 2026 digital economy.</p>
+                <div class="price"><span>₹1370</span> ₹399 <span class="discount">(71% OFF)</span></div>
+                <a href="https://imojo.in/1H6w6l4" target="_blank" class="btn btn-primary">Buy Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <div class="eyebrow">Why Choose Us?</div>
+                <h2>Results That Speak</h2>
+                <p>Join 2,000+ ambitious individuals building their digital legacy.</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"The digital marketing roadmap helped me scale my freelance business beyond what I thought possible. Truly architectural scaling."</p>
+                    <div class="reviewer">
+                        <img src="reviewer_1.png" alt="Sarah Mitchell" class="reviewer-img">
+                        <div class="reviewer-info">
+                            <h4>Sarah Mitchell</h4>
+                            <p>Digital Consultant</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Authentic Digital's style guides are a game-changer for my personal branding. I feel 10x more confident in high-stakes meetings."</p>
+                    <div class="reviewer">
+                        <img src="reviewer_2.png" alt="Arjun Mehta" class="reviewer-img">
+                        <div class="reviewer-info">
+                            <h4>Arjun Mehta</h4>
+                            <p>Tech Founder</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Finally, a Success Library that balances aesthetics with actionable data. The Instagram Mastery report is a masterclass."</p>
+                    <div class="reviewer">
+                        <img src="reviewer_3.png" alt="Elena Davon" class="reviewer-img">
+                        <div class="reviewer-info">
+                            <h4>Elena Davon</h4>
+                            <p>Content Strategist</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Choose Your Path</h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div>
+                        <div class="eyebrow">Individual</div>
+                        <h3>STYLE NEUTRALA</h3>
+                        <p class="product-desc" style="white-space: pre-line; font-size: 0.8rem;">A complete fashion and confidence guide for Gen Z women and students.
+✓ Body science (1/3 rule)
+✓ Capsule wardrobe
+✓ Indian climate styling
+✓ Confidence psychology</p>
+                        <div class="price"><span>₹1670</span> ₹399</div>
+                    </div>
+                    <a href="https://imojo.in/S77kV6" target="_blank" class="btn btn-outline buy-btn-full">Buy Now</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="badge">BEST VALUE</div>
+                    <div>
+                        <div class="eyebrow">The Bundle</div>
+                        <h3>FOUNDER COMBO</h3>
+                        <p class="product-desc" style="white-space: pre-line; font-size: 0.8rem; color: rgba(255,255,255,0.7);">The Ultimate Growth Toolkit
+📚 Fashion & Style Mastery
+💻 Digital Marketing India
+📱 Instagram Marketing Pro</p>
+                        <div class="price"><span>₹2000</span> ₹699</div>
+                    </div>
+                    <a href="https://imojo.in/deSQJW" target="_blank" class="btn btn-primary buy-btn-full">Buy Now</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div>
+                        <div class="eyebrow">Package</div>
+                        <h3>STYLE + DIGITAL</h3>
+                        <p class="product-desc" style="white-space: pre-line; font-size: 0.8rem;">Fashion, Identity & Digital Growth. Designed for modern creators and beginners seeking confidence & income. Instant clarity for your offline and online persona.</p>
+                        <div class="price"><span>₹1569</span> ₹799</div>
+                    </div>
+                    <a href="https://imojo.in/1HQYwwn" target="_blank" class="btn btn-outline buy-btn-full">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <a href="/" class="logo">AUTHENTIC DIGITAL</a>
+                <p style="margin-top: 20px;">Empowering creators with premium digital guides. Building the next generation of founders through architectural education.</p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#authentic-collection">E-Books</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="https://authenticdigital9.myinstamojo.com" target="_blank">Store</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Connect & Legal</h4>
+                <ul>
+                    <li><a href="https://www.instagram.com/authentic_digital0" target="_blank">Instagram</a></li>
+                    <li><a href="mailto:authenticdigital9@gmail.com">Email Us</a></li>
+                    <li><a href="terms.html">Terms & Services</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container bottom-bar">
+            <p>© 2026 Authentic Digital. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.7rem; opacity: 0.6;">Educational resources only. Results depend on your own efforts.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
