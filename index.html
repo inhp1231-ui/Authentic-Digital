@@ -126,10 +126,10 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            /* Blueprint Grid Pattern */
+            background-color: var(--primary);
             background-image: 
-                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
             background-size: 50px 50px;
         }
 
@@ -276,21 +276,6 @@
             font-weight: 700;
             letter-spacing: 0.1em;
             margin-bottom: 12px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .hero-content .eyebrow::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, transparent 70%);
-            z-index: -1;
-            filter: blur(10px);
         }
 
         .product-title {
@@ -461,14 +446,17 @@
                 display: flex;
                 align-items: center;
                 padding-top: 80px;
-                /* Premium Blueprint + Fade on Mobile */
-                background: 
-                    linear-gradient(135deg, rgba(255, 233, 233, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%),
-                    linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
-                background-size: 100% 100%, 30px 30px, 30px 30px;
+                background-color: var(--primary);
+                background-image: 
+                    linear-gradient(var(--border) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+                background-size: 30px 30px;
             }
             .spline-container { display: none !important; }
+
+            .glow-text {
+                text-shadow: 0 0 15px rgba(0, 255, 255, 0.4), 0 0 30px rgba(0, 255, 255, 0.1);
+            }
             
             .hero-content { 
                 padding: 20px; 
@@ -527,7 +515,7 @@
         </div>
         <div class="container hero-grid">
             <div class="hero-content" style="z-index: 20; position: relative;">
-                <div class="eyebrow">Architecture of Success</div>
+                <div class="eyebrow glow-text">Architecture of Success</div>
                 <h1>Your Success Library Starts Here</h1>
                 <p>Architect blueprints for digital growth and prestige.</p>
                 <div>
