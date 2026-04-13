@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>E-Book Collection | Authentic Digital</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -433,12 +433,52 @@
         }
 
         @media (max-width: 768px) {
-            .hero-grid { grid-template-columns: 1fr; }
-            h1 { font-size: 2.5rem; }
-            .product-row { flex-direction: column; gap: 40px; }
-            .pricing-grid { grid-template-columns: 1fr; }
-            .product-row:nth-child(even) { flex-direction: column; }
+            h1 { font-size: 2.2rem; line-height: 1.2; margin-bottom: 20px; }
+            h2 { font-size: 2rem; }
+            .hero { 
+                height: auto; 
+                min-height: 80vh;
+                display: flex;
+                align-items: center;
+                padding-top: 80px;
+                background: linear-gradient(135deg, #ffe9e9 0%, #fff 100%);
+            }
+            .spline-container { display: none !important; }
+            
+            .hero-content { 
+                padding: 20px; 
+                text-align: center;
+                margin: 0 auto;
+            }
+            .hero p { font-size: 1.1rem; margin: 0 auto 30px; }
+            .btn { width: 100%; margin: 10px 0 !important; display: block; text-align: center; }
+            .btn-outline { margin-left: 0 !important; }
+
             .nav-links { display: none; }
+            
+            .product-row { 
+                flex-direction: column !important; 
+                gap: 30px; 
+                margin-bottom: 60px;
+                text-align: center;
+            }
+            .product-image { min-height: 300px; padding: 20px; }
+            .product-title { font-size: 1.8rem; }
+            
+            .pricing-grid { grid-template-columns: 1fr; gap: 40px; }
+            .pricing-card.featured { transform: scale(1); }
+            .pricing-card.featured:hover { transform: translateY(-5px); }
+            
+            .testimonial-grid { grid-template-columns: 1fr; }
+            .section-title { margin-top: 60px; margin-bottom: 40px; }
+            .section-title h2 { font-size: 2.2rem; }
+
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            
+            /* Sticky headers adjustment */
+            [id$="-collection"], [id="fashion-style"], [id="earning-hack"] {
+                top: 59px !important;
+            }
         }
     </style>
 </head>
