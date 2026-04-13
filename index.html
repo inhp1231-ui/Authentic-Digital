@@ -126,6 +126,11 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            /* Blueprint Grid Pattern */
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
 
         .hero-grid {
@@ -271,6 +276,21 @@
             font-weight: 700;
             letter-spacing: 0.1em;
             margin-bottom: 12px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-content .eyebrow::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(10px);
         }
 
         .product-title {
@@ -441,7 +461,12 @@
                 display: flex;
                 align-items: center;
                 padding-top: 80px;
-                background: linear-gradient(135deg, #ffe9e9 0%, #fff 100%);
+                /* Premium Blueprint + Fade on Mobile */
+                background: 
+                    linear-gradient(135deg, rgba(255, 233, 233, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%),
+                    linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+                background-size: 100% 100%, 30px 30px, 30px 30px;
             }
             .spline-container { display: none !important; }
             
